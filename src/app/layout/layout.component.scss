@@ -1,0 +1,26 @@
+.example-container {
+    width: 100%;
+    margin: 0;
+    position: fixed;
+    // z-index: 2;
+    height: 100%;
+    background:#F7F7FE;
+    color: #050315;
+}
+
+mat-toolbar{
+    background: #554ffa;
+    padding: 0px 20px;
+}
+
+mat-drawer {
+    background: #D2D1F4;
+    color: #050315;
+    padding: 20px;
+    border-radius: 0;
+}
+
+mat-drawer-content{
+    padding: 20px;
+    background-color: #dedcff;
+}

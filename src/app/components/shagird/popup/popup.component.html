@@ -1,0 +1,39 @@
+<div mat-dialog-title>
+    <h3>Şagird</h3>
+</div>
+<form [formGroup]="shagirdForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-error *ngIf="shagirdForm.get('nomre').hasError('min') || shagirdForm.get('nomre').hasError('max')">
+                    Şagird nömrəsi 5 rəqəmdən artıq ola bilməz!
+                </mat-error>
+                <mat-label>Nömrə</mat-label>
+                <input matInput type="number" placeholder="Şagirdin nömrəsi" formControlName="nomre" [readonly]="data.lookMode">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Ad</mat-label>
+                <input matInput type="text" placeholder="Şagirdin adı" formControlName="ad" [readonly]="data.lookMode">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Soyad</mat-label>
+                <input matInput type="text" placeholder="Şagirdin soyadı" formControlName="soyad" [readonly]="data.lookMode">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Sinif</mat-label>
+                <input matInput type="number" placeholder="Sinif" formControlName="sinif" [readonly]="data.lookMode">
+                <mat-error *ngIf="shagirdForm.get('sinif').hasError('min') || shagirdForm.get('sinif').hasError('max')">
+                    Sinif 1 ilə 11 arasında ola bilər!
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+        @if(!data.lookMode){
+            <button mat-raised-button color="primary" type="submit">{{data.data ? 'Update': 'Save'}}</button>
+        }
+    </div>
+</form>

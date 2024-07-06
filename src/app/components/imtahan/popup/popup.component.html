@@ -1,0 +1,45 @@
+<div mat-dialog-title>
+    <h3>İmtahan</h3>
+</div>
+<form [formGroup]="imtahanForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="content">
+        <input matInput type="number" formControlName="nomre" [hidden]="true">
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Dərs</mat-label>
+                <mat-select formControlName="dersKod">
+                    <mat-option *ngFor="let keyValuePair of dersKodlar | keyvalue" [value]="keyValuePair.key">{{keyValuePair.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Şagird</mat-label>
+                <mat-select formControlName="shagirdNomre">
+                    <mat-option *ngFor="let keyValuePair of shagirdNomreler | keyvalue" [value]="keyValuePair.key">{{keyValuePair.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Tarix</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="tarix" [readonly]="data.lookMode">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Qiymət</mat-label>
+                <input matInput type="number" placeholder="Qiymət" formControlName="qiymet" [readonly]="data.lookMode">
+                <mat-error *ngIf="imtahanForm.get('qiymet').hasError('min') || imtahanForm.get('qiymet').hasError('max')">
+                    Qiymət 1 ilə 9 arasında ola bilər!
+                  </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+        @if(!data.lookMode){
+            <button mat-raised-button color="primary" type="submit">{{data.data ? 'Update': 'Save'}}</button>
+        }
+    </div>
+</form>

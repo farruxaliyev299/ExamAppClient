@@ -1,0 +1,23 @@
+td {
+    button {
+        margin: 10px !important;
+    }
+}
+
+.action-container{
+    display: flex;
+}
+
+#create {
+    border-radius: 10px;
+    margin: 10px 0;
+    color: #050315 !important;
+    &:hover{
+        background: #d0cefd;
+    }
+}
+
+.button-section {
+    display: flex;
+    justify-content: flex-end;
+}

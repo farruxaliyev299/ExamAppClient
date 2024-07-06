@@ -1,0 +1,48 @@
+<div class="button-section">
+  <button mat-raised-button id="create" (click)="openAddForm()">Yarat</button>
+</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="Kod">
+    <th mat-header-cell *matHeaderCellDef> Kod </th>
+    <td mat-cell *matCellDef="let element"> {{element.kod}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Ad">
+    <th mat-header-cell *matHeaderCellDef> Ad </th>
+    <td mat-cell *matCellDef="let element"> {{element.ad}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Muellim Ad">
+    <th mat-header-cell *matHeaderCellDef> Müəllim Ad </th>
+    <td mat-cell *matCellDef="let element"> {{element.muellimAd}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Muellim Soyad">
+    <th mat-header-cell *matHeaderCellDef> Müəllim Soyad </th>
+    <td mat-cell *matCellDef="let element"> {{element.muellimSoyad}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Sinif">
+    <th mat-header-cell *matHeaderCellDef> Sinif </th>
+    <td mat-cell *matCellDef="let element"> {{element.sinif}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let element" class="action-container">
+      <span><button mat-fab type="button" (click)="openLookForm({ data: element, lookMode: true })">
+          <mat-icon>visibility</mat-icon>
+        </button></span>
+      <span><button mat-fab type="button" (click)="delete(element.kod)">
+          <mat-icon>delete</mat-icon>
+        </button></span>
+      <span><button mat-fab type="button" (click)="openEditForm({ data: element, lookMode: false })">
+          <mat-icon>edit</mat-icon>
+        </button></span>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
