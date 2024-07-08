@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { DersClientService } from '../../../services/ders-client.service';
 import { Ders } from '../../../models/ders';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { NotificationService } from '../../../services/common/notification.service';
 
 @Component({
   selector: 'app-popup',
@@ -16,6 +17,7 @@ export class PopupComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private clientService: DersClientService,
     private _dersDialogRef: MatDialogRef<PopupComponent>,
+    private _notificationService: NotificationService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.dersForm = _formBuilder.group({
       kod: ['', [Validators.required, Validators.maxLength(3)]],
@@ -49,7 +51,7 @@ export class PopupComponent implements OnInit {
       .add(this.dersForm.value)
       .subscribe({
         next: (val) => {
-          alert('Ders yaradildi!');
+          this._notificationService.sendNotification('Ders yaradildi!', 'Oldu');
           this._dersDialogRef.close(true);
         },
         error: (err) => {
@@ -64,7 +66,7 @@ export class PopupComponent implements OnInit {
       .update(this.dersForm.value)
       .subscribe({
         next: (val) => {
-          alert('Ders məlumatı təzələndi!');
+          this._notificationService.sendNotification('Ders məlumatı təzələndi!', 'Oldu');
           this._dersDialogRef.close(true);
         },
         error: (err) => {

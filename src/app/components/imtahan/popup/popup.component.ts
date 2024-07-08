@@ -4,6 +4,7 @@ import { ImtahanClientService } from '../../../services/imtahan-client.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DersClientService } from '../../../services/ders-client.service';
 import { ShagirdClientService } from '../../../services/shagird-client.service';
+import { NotificationService } from '../../../services/common/notification.service';
 
 @Component({
   selector: 'app-popup',
@@ -25,6 +26,7 @@ export class PopupComponent implements OnInit {
     private dersClientService: DersClientService,
     private shagirdClientService: ShagirdClientService,
     private _imtahanDialogRef: MatDialogRef<PopupComponent>,
+    private _notificationService: NotificationService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.imtahanForm = _formBuilder.group({
       nomre: [null],
@@ -46,11 +48,6 @@ export class PopupComponent implements OnInit {
       this.imtahanForm.get('shagirdNomre').disable();
     }
     this.imtahanForm.patchValue(this.data.data);
-  }
-
-  preventDefault(event: Event): void {
-    event.preventDefault();
-    // Add any custom logic you need
   }
 
 
@@ -90,7 +87,7 @@ export class PopupComponent implements OnInit {
       .add(this.imtahanForm.value)
       .subscribe({
         next: (val) => {
-          alert('Imtahan yaradıldı!');
+          this._notificationService.sendNotification('Imtahan yaradildi!', 'Oldu');
           this._imtahanDialogRef.close(true);
         },
         error: (err) => {
@@ -105,7 +102,7 @@ export class PopupComponent implements OnInit {
       .update(this.imtahanForm.value)
       .subscribe({
         next: (val) => {
-          alert('Ders məlumatı təzələndi!');
+          this._notificationService.sendNotification('Imtahan melumatlari tezelendi!', 'Oldu');
           this._imtahanDialogRef.close(true);
         },
         error: (err) => {

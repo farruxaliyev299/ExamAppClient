@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ShagirdClientService } from '../../../services/shagird-client.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../popup/popup.component';
+import { NotificationService } from '../../../services/common/notification.service';
 
 @Component({
   selector: 'app-list',
@@ -16,6 +17,7 @@ export class ListComponent implements OnInit {
 
   constructor(
     private clientService: ShagirdClientService,
+    private _notificationService: NotificationService,
     private _dialog: MatDialog){
   }
 
@@ -64,7 +66,7 @@ export class ListComponent implements OnInit {
     .delete(nomre)
     .subscribe({
       next : (rs) => {
-        alert("Şagird silindi!");
+        this._notificationService.sendNotification('Şagird silindi!', 'Oldu');
         this.fetch();
       },
       error: (err) => {

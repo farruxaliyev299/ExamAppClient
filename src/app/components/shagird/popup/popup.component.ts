@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ShagirdClientService } from '../../../services/shagird-client.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationService } from '../../../services/common/notification.service';
 
 @Component({
   selector: 'app-popup',
@@ -17,6 +18,7 @@ export class PopupComponent implements OnInit{
     private _formBuilder: FormBuilder,
     private clientService: ShagirdClientService,
     private _shagirdDialogRef: MatDialogRef<PopupComponent>,
+    private _notificationService: NotificationService,
     @Inject(MAT_DIALOG_DATA) public data: any,) {
     this.shagirdForm = _formBuilder.group({
       nomre: [null, [Validators.required, Validators.min(0), Validators.max(99999)]],
@@ -49,7 +51,7 @@ export class PopupComponent implements OnInit{
       .add(this.shagirdForm.value)
       .subscribe({
         next: (val) => {
-          alert('Şagird yaradıldı!');
+          this._notificationService.sendNotification('Şagird yaradildi!', 'Oldu');
           this._shagirdDialogRef.close(true);
         },
         error: (err: HttpErrorResponse) => {
@@ -65,7 +67,7 @@ export class PopupComponent implements OnInit{
     .update(this.shagirdForm.value)
     .subscribe({
       next: (val) => {
-        alert('Ders məlumatı təzələndi!');
+        this._notificationService.sendNotification('Şagird melumatlari tezelendi!', 'Oldu');
         this._shagirdDialogRef.close(true);
       },
       error: (err) => {

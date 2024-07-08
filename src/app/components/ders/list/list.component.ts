@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DersClientService } from '../../../services/ders-client.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../popup/popup.component';
+import { NotificationService } from '../../../services/common/notification.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class ListComponent implements OnInit {
 
   constructor(
     private clientService: DersClientService,
+    private _notificationService: NotificationService,
     private _dialog: MatDialog){
   }
 
@@ -76,7 +78,7 @@ export class ListComponent implements OnInit {
     .delete(kod)
     .subscribe({
       next : (rs) => {
-        alert("Dərs silindi!");
+        this._notificationService.sendNotification('Ders silindi!', 'Oldu');
         this.fetch();
       },
       error: (err) => {
